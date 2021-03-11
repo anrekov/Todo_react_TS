@@ -1,3 +1,4 @@
+import { Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
@@ -51,13 +52,18 @@ const TodosPage: React.FC = () => {
 
   return (
     <>
-      <TodoForm onAdd={addHandler} />
+      <Row>
+        <Col sm={3} md={4} lg={5}></Col>
+        <Col sm={18} md={16} lg={14}>
+          <TodoForm onAdd={addHandler} />
 
-      <TodoList
-        todos={todos}
-        onRemove={removeHandler}
-        onToggle={toggleHandler}
-      />
+          <TodoList
+            todos={todos}
+            onRemove={removeHandler}
+            onToggle={toggleHandler}
+          />
+        </Col>
+      </Row>
     </>
   );
 };

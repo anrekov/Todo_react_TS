@@ -1,11 +1,33 @@
 import React from 'react';
 import { ITodo } from '../interfaces';
+import { DeleteOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 
 type TodoListProps = {
   todos: ITodo[];
   onToggle(id: number): void;
   onRemove: (id: number) => void;
 };
+
+const StyledSpan = styled.span`
+  text-decoration: line-through;
+`;
+
+const TodoLabel = styled.label`
+  font-size: 1.2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 1rem;
+  background: #f3f3f3;
+  color: rgba(0, 0, 0, 0.6);
+`;
+
+const TodoI = styled.i`
+  z-index: 2;
+`;
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onRemove, onToggle }) => {
   const removeHandler = (event: React.MouseEvent, id: number) => {
@@ -17,32 +39,29 @@ const TodoList: React.FC<TodoListProps> = ({ todos, onRemove, onToggle }) => {
     return <p className='center'>No tasks</p>;
   }
   return (
-    <ul>
+    <div>
       {todos.map((todo) => {
-        const classes = ['todo'];
-        if (todo.completed) {
-          classes.push('completed');
-        }
         return (
-          <li key={todo.id} className={classes.join(' ')}>
-            <label>
+          <p key={todo.id}>
+            <TodoLabel>
               <input
                 type='checkbox'
                 checked={todo.completed}
                 onChange={onToggle.bind(null, todo.id)}
               />
-              <span>{todo.title}</span>
-              <i
-                className='material-icons red-text'
-                onClick={(event) => removeHandler(event, todo.id)}
-              >
-                delete
-              </i>
-            </label>
-          </li>
+              {todo.completed ? (
+                <StyledSpan>{todo.title}</StyledSpan>
+              ) : (
+                <span>{todo.title}</span>
+              )}
+              <TodoI onClick={(event) => removeHandler(event, todo.id)}>
+                <DeleteOutlined />
+              </TodoI>
+            </TodoLabel>
+          </p>
         );
       })}
-    </ul>
+    </div>
   );
 };
 

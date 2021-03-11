@@ -1,19 +1,25 @@
+import { Menu } from 'antd';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledMenu = styled(Menu)`
+  & li:nth-child(2) {
+    margin-left: 21vw !important;
+  }
+`;
+
+const StyledMenuItem = styled(Menu.Item)`
+  font-size: 1.5rem;
+`;
 
 export const Navbar: React.FunctionComponent = () => (
-  <nav>
-    <div className='nav-wrapper purple darken-1 px1'>
-      <NavLink to='/' className='brand-logo'>
-        React + TypeScript
-      </NavLink>
-      <ul className='right hide-on-med-and-down'>
-        <li>
-          <NavLink to='/'>Tasks</NavLink>
-        </li>
-        <li>
-          <NavLink to='/about'>Info</NavLink>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <StyledMenu mode='horizontal'>
+    <StyledMenuItem key='main'>
+      <NavLink to='/'>Main page</NavLink>
+    </StyledMenuItem>
+
+    <StyledMenuItem key='info'>
+      <NavLink to='/about'>About</NavLink>
+    </StyledMenuItem>
+  </StyledMenu>
 );
